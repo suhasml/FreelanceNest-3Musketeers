@@ -208,22 +208,22 @@ const Dashboard = () => {
         }
     };
 
-    const getQuestionForProject = async () => {
-        try {
-            // Make a GET request to the backend API to fetch the question for the project
-            const response = await axios.get(`http://localhost:3000/PM/projects/questions/${selectedProject._id}`);
+    // const getQuestionForProject = async () => {
+    //     try {
+    //         // Make a GET request to the backend API to fetch the question for the project
+    //         const response = await axios.get(`http://localhost:3000/PM/projects/questions/${selectedProject._id}`);
 
-            if (response.status === 200) {
-                return response.data.question; // Return the question if it exists
-            } else {
-                console.error('Error fetching question:', response.status);
-                return null; // Return null if there's an error or if the project doesn't have a question
-            }
-        } catch (error) {
-            console.error('Error fetching question:', error);
-            return null; // Return null if there's an error
-        }
-    };
+    //         if (response.status === 200) {
+    //             return response.data.question; // Return the question if it exists
+    //         } else {
+    //             console.error('Error fetching question:', response.status);
+    //             return null; // Return null if there's an error or if the project doesn't have a question
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching question:', error);
+    //         return null; // Return null if there's an error
+    //     }
+    // };
 
 
     return (

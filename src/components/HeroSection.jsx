@@ -73,14 +73,14 @@ const HeroSection = () => {
       </p>
       <div class="flex justify-center my-10">
     <button 
-      class="bg-gradient-to-r from-blue-500 to-blue-800 py-3 px-4 mx-3 rounded-md" 
+      class="bg-gradient-to-r  text-white from-blue-500 to-blue-800 py-3 px-4 mx-3 rounded-md" 
       onClick={handleDeveloperClick}>
-        Sign-UP as a Freelancer
+        I am a Freelancer
     </button>
     <button 
-      class="bg-gradient-to-r from-green-500 to-green-800 py-3 px-4 mx-3 rounded-md" 
+      class="bg-gradient-to-r text-white from-green-500 to-green-800 py-3 px-4 mx-3 rounded-md" 
       onClick={handleProjectManagerClick}>
-        Sign-Up as a Project Manager
+        I am a Project Manager
     </button>
       </div>
       <div className="flex mt-10 justify-center">

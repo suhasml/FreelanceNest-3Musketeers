@@ -94,10 +94,10 @@ router.post('/projects/:projectId/add-email', async (req, res) => {
 router.post('/projects/:projectId/submit', async (req, res) => {
   try {
     const { projectId } = req.params;
-    const { developerEmail, githubLink } = req.body;
+    const { developerEmail, githubLink, youtubeLink } = req.body;
 
     // Create a new submitted project record
-    const submittedProject = new SubmittedProject({ projectId, developerEmail, githubLink });
+    const submittedProject = new SubmittedProject({ projectId, developerEmail, githubLink, youtubeLink });
     await submittedProject.save();
 
     res.status(201).json(submittedProject);

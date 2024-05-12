@@ -86,7 +86,7 @@ const Profile = () => {
     // Function to fetch user data from the backend
     const fetchUserData = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/user/${currentUser.email}`);
+            const response = await axios.get(`http://localhost:3000/freelancer/developers/${currentUser.email}`);
             setUserData(response.data);
         } catch (error) {
             console.error('Error fetching user data:', error);
@@ -118,7 +118,15 @@ const Profile = () => {
     const saveChanges = async () => {
         try {
             // Assuming you have an endpoint to update user data
-            await axios.post(`http://localhost:3000/user/${currentUser.email}`, userData);
+            await axios.post(`http://localhost:3000/freelancer/developers/${currentUser.email}`, 
+                {
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    github: userData.github,
+                    linkedin: userData.linkedin,
+                    techStack: userData.techStack,
+                }
+            );
             console.log('User data updated successfully');
         } catch (error) {
             console.error('Error updating user data: ', error);
