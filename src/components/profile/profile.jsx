@@ -77,7 +77,7 @@ const Profile = () => {
         github: '',
         linkedin: '',
         techStack: '',
-        profilePhoto: null,
+        //profilePhoto: null,
     });
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -145,7 +145,8 @@ const Profile = () => {
     const handleTechStackChange = (selectedOptions) => {
         setUserData({
             ...userData,
-            technologies: selectedOptions.map(option => option.value)
+            //technologies: selectedOptions.map(option => option.value)
+            techStack: selectedOptions.map(option => option.value)
         });
     };
 
@@ -194,16 +195,13 @@ const Profile = () => {
                         {isDeveloper ? (
                             <div className="mb-4">
                                 <label htmlFor="techStack" className="block text-gray-700">Tech Stack</label>
-                                <Select
-                                        isMulti
-                                        options={techOptions}
-                                        value={techOptions.filter(option => userData.techStack.includes(option.value))}
-                                        onChange={handleTechStackChange}
-                                        className="basic-multi-select"
-                                        classNamePrefix="select"
-                                        name='techStack'
-                                        id='techStack'
-                                    />
+                                <Select className='rounded-md border-gray-300 shadow-sm '
+                                    isMulti
+                                    name="techStack"
+                                    options={techOptions}
+                                    value={techOptions.filter(option => userData.techStack.includes(option.value))}
+                                    onChange={handleTechStackChange}
+                                />
                             </div>
                         ) : (
                             <div className="mb-4 grid grid-cols-2 gap-4">
@@ -221,7 +219,6 @@ const Profile = () => {
                                 </div>
                             </div>
                         )}
-
 
                     </div>
                     {/* <div className="mb-4">

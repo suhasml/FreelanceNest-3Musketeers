@@ -100,22 +100,22 @@ export const checklistItems = [
   {
     title: "Code merge made easy",
     description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
+      "Streamline collaboration and code integration effortlessly with our simplified merge process.",
   },
   {
     title: "Review code without worry",
     description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
+      "Review code worry-free with our AI-powered platform ensuring accuracy and security.",
   },
   {
     title: "AI Assistance to reduce time",
     description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
+      "Efficient AI tools streamline tasks and minimize time investments for enhanced productivity.",
   },
   {
     title: "Share work in minutes",
     description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
+      "Effortlessly distribute work assignments within minutes with our streamlined platform.",
   },
 ];
 
@@ -124,8 +124,8 @@ export const pricingOptions = [
     title: "Free",
     price: "$0",
     features: [
-      "Private board sharing",
-      "5 Gb Storage",
+      "1 Time Mentoring",
+      "Less reach area",
       "Web Analytics",
       "Private Mode",
     ],
@@ -135,7 +135,7 @@ export const pricingOptions = [
     price: "$10",
     features: [
       "Private board sharing",
-      "10 Gb Storage",
+      "Weekly once mentoring",
       "Web Analytics (Advance)",
       "Private Mode",
     ],
@@ -145,7 +145,7 @@ export const pricingOptions = [
     price: "$200",
     features: [
       "Private board sharing",
-      "Unlimited Storage",
+      "Industry expert Mentoring",
       "High Performance Network",
       "Private Mode",
     ],
