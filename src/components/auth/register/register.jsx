@@ -31,6 +31,20 @@ const Register = () => {
                         throw new Error('Failed to add project manager to the database');
                     }
                 }
+
+                if (isDeveloper) {
+                    // Make a request to your backend API to add the developer to the database
+                    const response = await fetch('http://localhost:3000/freelancer/developers', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email }),
+                    });
+                    if (!response.ok) {
+                        throw new Error('Failed to add developer to the database');
+                    }
+                }
             } catch (error) {
                 // Handle different types of errors
                 if (error.code === 'auth/email-already-in-use') {
@@ -67,6 +81,21 @@ const Register = () => {
                         throw new Error('Failed to add project manager to the database');
                     }
                 }
+
+                if (isDeveloper) {
+                    // Make a request to your backend API to add the developer to the database
+                    const response = await fetch('http://localhost:3000/freelancer/developers', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email: googleUser.email }),
+                    });
+                    if (!response.ok) {
+                        throw new Error('Failed to add developer to the database');
+                    }
+                }
+
                 // Redirect the user
                 // redirectUser();
             } catch (error) {

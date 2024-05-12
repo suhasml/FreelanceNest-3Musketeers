@@ -58,6 +58,20 @@ const Login = () => {
                         throw new Error('Failed to add project manager to the database');
                     }
                 }
+
+                if (isDeveloper) {
+                    // Make a request to your backend API to add the developer to the database
+                    const response = await fetch('http://localhost:3000/freelancer/developers', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, isDeveloper: true }),
+                    });
+                    if (!response.ok) {
+                        throw new Error('Failed to add developer to the database');
+                    }
+                }
                 // Redirect the user
                 // redirectUser();
             } catch (error) {
@@ -96,7 +110,7 @@ const Login = () => {
 
                 if (isDeveloper) {
                     // Make a request to your backend API to add the developer to the database
-                    const response = await fetch('http://localhost:3000/PM/users', {
+                    const response = await fetch('http://localhost:3000/freelancer/developers', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

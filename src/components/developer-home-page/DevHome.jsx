@@ -11,7 +11,7 @@ const DeveloperHomePage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/projects/{userEmail}`);
+        const response = await axios.get(`http://localhost:3000/PM/allprojects`);
         setProjects(response.data);
       } catch (error) {
         console.error('Error fetching projects:', error);

@@ -69,9 +69,7 @@ const HeroSection = () => {
         </span>
       </h1>
       <p className="mt-10 text-lg text-center text-neutral-500 max-w-4xl">
-        Empower your creativity and bring your VR app ideas to life with our
-        intuitive development tools. Get started today and turn your imagination
-        into immersive reality!
+      In the age of seamless connectivity, innovative platforms empower developers and project managers alike, streamlining freelance collaborations with intuitive interfaces and automated workflows. Harnessing AI-driven matchmaking and real-time feedback mechanisms, the future of freelancing redefines productivity and efficiency, transcending geographical barriers for dynamic, agile project execution. Welcome to a world where synergy between talent and task is effortless, revolutionizing the landscape of remote work.
       </p>
       <div class="flex justify-center my-10">
     <button 

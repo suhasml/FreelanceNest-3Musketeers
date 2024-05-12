@@ -1,8 +1,8 @@
 import { BotMessageSquare } from "lucide-react";
-import { BatteryCharging } from "lucide-react";
-import { Fingerprint } from "lucide-react";
-import { ShieldHalf } from "lucide-react";
-import { PlugZap } from "lucide-react";
+import { AppWindow } from 'lucide-react';
+import { Braces } from 'lucide-react';
+import { PersonStanding } from 'lucide-react';
+import { Signal } from 'lucide-react';
 import { GlobeLock } from "lucide-react";
 
 import user1 from "../assets/profile-pictures/user1.jpg";
@@ -61,39 +61,39 @@ export const testimonials = [
 export const features = [
   {
     icon: <BotMessageSquare />,
-    text: "Drag-and-Drop Interface",
+    text: "Tailored Opportunities",
     description:
-      "Easily design and arrange your VR environments with a user-friendly drag-and-drop interface.",
+      "Tailor your freelance journey with personalized job recommendations and advanced filtering for the perfect match",
   },
   {
-    icon: <Fingerprint />,
-    text: "Multi-Platform Compatibility",
+    icon: <Braces />,
+    text: "Diverse Marketplace",
     description:
-      "Build VR applications that run seamlessly across multiple platforms, including mobile, desktop, and VR headsets.",
+      "Dive into a diverse range of freelance gigs across tech, design, marketing, and more, tailored to match your expertise.",
   },
   {
-    icon: <ShieldHalf />,
-    text: "Built-in Templates",
+    icon: <PersonStanding />,
+    text: "Verified Clients & Projects",
     description:
-      "Jumpstart your VR projects with a variety of built-in templates for different types of applications and environments.",
+      "Connect with trusted clients and verified projects, ensuring a secure and reliable freelance experience.",
   },
   {
-    icon: <BatteryCharging />,
-    text: "Real-Time Preview",
+    icon: <AppWindow />,
+    text: "Our Mission",
     description:
-      "Preview your VR application in real-time as you make changes, allowing for quick iterations and adjustments.",
+      "Empowering individuals globally through sustainable employment opportunities and community-driven initiatives.",
   },
   {
-    icon: <PlugZap />,
-    text: "Collaboration Tools",
+    icon: <Signal />,
+    text: "Empowering Opportunity",
     description:
-      "Work together with your team in real-time on VR projects, enabling seamless collaboration and idea sharing.",
+      "Empower individuals and communities through meaningful employment opportunities with Give Work initiatives, fostering economic independence and empowerment.",
   },
   {
     icon: <GlobeLock />,
-    text: "Analytics Dashboard",
+    text: "Get Involved",
     description:
-      "Gain valuable insights into user interactions and behavior within your VR applications with an integrated analytics dashboard.",
+      "Join us in making a difference through volunteering, donations, or partnering with Give Work initiatives.",
   },
 ];
 

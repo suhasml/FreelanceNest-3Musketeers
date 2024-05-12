@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require("dotenv").config({ path: "./.env"});
 const projectsRouter = require('./routes/project');
+const freelancerRouter = require('./routes/freelancer');
 require("dotenv").config({ path: "../.env"});
 const express = require('express');
 const app = express();
@@ -24,6 +25,7 @@ mongoose.connect(uri, options);
 const connection = mongoose.connection;
 
 app.use('/PM', projectsRouter);
+app.use('/freelancer', freelancerRouter);
 
 connection.once("open", () => {
   console.log("MongoDB connection established successfully");
