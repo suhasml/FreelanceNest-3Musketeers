@@ -81,7 +81,7 @@ router.post('/projects/:projectId/add-email', async (req, res) => {
     // Create a new project developer record
     const projectDeveloper = new ProjectDeveloper({ projectId, developerEmail: email });
     await projectDeveloper.save();
-
+    console.log('Developer email added to project:', projectDeveloper);
     res.status(201).json(projectDeveloper);
   } catch (error) {
     console.error('Error adding developer email to project:', error);

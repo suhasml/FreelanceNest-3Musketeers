@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../Navbar';
+import { useAuth } from '../../contexts/authContext';
 
 const DevHome = () => {
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null); // State to track selected project
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -30,6 +32,20 @@ const DevHome = () => {
   const closeModal = () => {
     setSelectedProject(null);
   };
+
+  const handleApply = async () => {
+    try {
+      if (selectedProject) {
+        const email = currentUser.email;
+        await axios.post(`http://localhost:3000/freelancer/projects/${selectedProject._id}/add-email`, { email });
+        console.log('Email added to project:', selectedProject._id);
+        // Add any further action after successfully adding the email
+      }
+    } catch (error) {
+      console.error('Error adding email to project:', error);
+    }
+  };
+
 
   return (
     <div>
@@ -76,7 +92,7 @@ const DevHome = () => {
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                  <button onClick={() => console.log('Apply for project:', selectedProject._id)} type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                  <button onClick={ handleApply} type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
                     Apply
                     </button>
                   <button onClick={closeModal} type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
@@ -87,6 +103,7 @@ const DevHome = () => {
             </div>
           </div>
         )}
+        
       </div>
     </div>
   );
