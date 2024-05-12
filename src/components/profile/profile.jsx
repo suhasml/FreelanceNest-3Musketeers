@@ -224,10 +224,10 @@ const Profile = () => {
 
 
                     </div>
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <label htmlFor="profilePhoto" className="block text-700">Profile Photo</label>
                         <input type="file" name="profilePhoto" id="profilePhoto" onChange={handleProfilePhotoChange} className="mt-1 block w-full rounded-md border" />
-                    </div>
+                    </div> */}
                 </form>
                 {/* Project section */}
                 <h1 className="text-4xl font-semibold  mb-4 text-center my-6">{!isDeveloper ? 'Created Projects' : 'Assigned Projects'}</h1>

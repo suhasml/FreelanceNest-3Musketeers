@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../../firebase/auth';
 import { useAuth } from '../../../contexts/authContext';
+import Navbar from '../../Navbar';
 // import { initializeApp } from 'firebase/app';
 // import 'firebase/auth';
 // import firebaseConfig from '../../../firebase/config';
@@ -150,6 +151,10 @@ const Login = () => {
 
     return (
         <div>
+            <div>
+                <Navbar />
+            </div>
+            <div className="container mx-auto p-4">
             {userLoggedIn && redirectUser()}
 
             <main className="w-full h-screen flex self-center place-content-center place-items-center">
@@ -241,6 +246,7 @@ const Login = () => {
                     </button>
                 </div>
             </main>
+        </div>
         </div>
     );
 };

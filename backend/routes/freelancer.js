@@ -22,11 +22,11 @@ router.post('/developers', async (req, res) => {
 });
 
 // Route to update developer profile
-router.put('/developers/:id', async (req, res) => {
+router.put('/developers/:email', async (req, res) => {
   try {
-    const { id } = req.params;
+    const { email } = req.params;
     const { firstName, lastName, linkedin, github, techStack } = req.body;
-    const developer = await Developer.findById(id);
+    const developer = await Developer.findOne({ email });
     if (developer) {
       developer.firstName = firstName;
       developer.lastName = lastName;
@@ -43,6 +43,7 @@ router.put('/developers/:id', async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
 
 // Route to add developer to project
 router.post('/projects/developers', async (req, res) => {

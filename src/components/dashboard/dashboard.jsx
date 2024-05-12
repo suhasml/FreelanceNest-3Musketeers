@@ -68,7 +68,7 @@ const Dashboard = () => {
         { value: 'Others', label: 'Others' },
 
     ];
-    
+
     const { currentUser, userLoggedIn } = useAuth();
     console.log('IsLoggedIn:', userLoggedIn);
     const [showModal, setShowModal] = useState(false);
@@ -162,7 +162,7 @@ const Dashboard = () => {
 
     const generateQuestions = async () => {
         try {
-            console.log('Selected Project:', selectedProject);
+            // console.log('Selected Project:', selectedProject);
             const response = await axios.post('https://generate-questions.vercel.app/generate-problems', {
                 "projectName": selectedProject.projectName,
                 "problemStatement": selectedProject.problemStatement,
@@ -174,7 +174,7 @@ const Dashboard = () => {
             });
             if (response.status === 200) {
                 const questions = response.data.response[0];
-                console.log('Generated Questions:', questions);
+                // console.log('Generated Questions:', questions);
                 setGeneratedQuestions(questions);
                 setQuestionModalOpen(true);
             } else {
@@ -184,7 +184,7 @@ const Dashboard = () => {
             console.error('Error generating questions:', error);
         }
     };
-    
+
 
 
     useEffect(() => {
@@ -212,7 +212,7 @@ const Dashboard = () => {
         try {
             // Make a GET request to the backend API to fetch the question for the project
             const response = await axios.get(`http://localhost:3000/PM/projects/questions/${selectedProject._id}`);
-            
+
             if (response.status === 200) {
                 return response.data.question; // Return the question if it exists
             } else {
@@ -224,7 +224,7 @@ const Dashboard = () => {
             return null; // Return null if there's an error
         }
     };
-    
+
 
     return (
         <div>
@@ -308,137 +308,141 @@ const Dashboard = () => {
                     </div>
                 )}
             </div>
-                <hr className='my-5' />
-                <div className='bg-gray-100 p-6 rounded-lg shadow-md mx-8'>
-                    <h2 className="text-lg font-semibold text-center mb-4">Ongoing Projects</h2>
-                    {loading ? (
-                        <div className="flex justify-center items-center h-96">
-                            <FallingLines
-                                height={100}
-                                width={100}
-                                color="blue"
-                            />
-                        </div>
+            <hr className='my-5' />
+            <div className='bg-gray-100 p-6 rounded-lg shadow-md mx-8'>
+                <h2 className="text-lg font-semibold text-center mb-4">Ongoing Projects</h2>
+                {loading ? (
+                    <div className="flex justify-center items-center h-96">
+                        <FallingLines
+                            height={100}
+                            width={100}
+                            color="blue"
+                        />
+                    </div>
 
+                ) : (
+                    projects.length === 0 ? (
+                        <p className="text-center text-black text-lg">No projects found</p>
                     ) : (
-                        projects.length === 0 ? (
-                            <p className="text-center text-black text-lg">No projects found</p>
-                        ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                {projects.map((project, index) => (
-                                    <div key={index} className="bg-white rounded-lg shadow-md p-4 cursor-pointer" onClick={() => handleProjectClick(project)}>
-                                        <h3 className="text-lg font-semibold mb-2">{project.projectName}</h3>
-                                        <p className="text-gray-600">{project.description}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        )
-                    )}
-                </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {projects.map((project, index) => (
+                                <div key={index} className="bg-white rounded-lg shadow-md p-4 cursor-pointer" onClick={() => handleProjectClick(project)}>
+                                    <h3 className="text-lg font-semibold mb-2">{project.projectName}</h3>
+                                    <p className="text-gray-600">{project.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )
+                )}
+            </div>
 
-                {selectedProject && (
-                    <div className="fixed inset-0 items-center justify-center bg-black bg-opacity-50 p-20">
-                        <div className="bg-white p-6 rounded-lg shadow-xl max-h-full overflow-y-auto">
-                            <h2 className="text-lg font-bold mb-4">Project Details</h2>
-                            <p><strong>Project Name:</strong> {selectedProject.projectName}</p>
-                            <p><strong>Problem Statement:</strong> {selectedProject.problemStatement}</p>
-                            <p><strong>Description:</strong> {selectedProject.description}</p>
-                            <p><strong>Technologies:</strong> {selectedProject.technologies.join(', ')}</p>
-                            <p><strong>Level:</strong> {selectedProject.level}</p>
-                            <p><strong>Duration:</strong> {selectedProject.duration} hrs</p>
-                            <p><strong>Budget:</strong> ${selectedProject.money}</p>
-                            <div className="flex justify-end mt-4">
-                                <div className="p-2">
+            {selectedProject && (
+                <div className="fixed inset-0 items-center justify-center bg-black bg-opacity-50 p-20">
+                    <div className="bg-white p-6 rounded-lg shadow-xl max-h-full overflow-y-auto">
+                        <h2 className="text-lg font-bold mb-4">Project Details</h2>
+                        <p><strong>Project Name:</strong> {selectedProject.projectName}</p>
+                        <p><strong>Problem Statement:</strong> {selectedProject.problemStatement}</p>
+                        <p><strong>Description:</strong> {selectedProject.description}</p>
+                        <p><strong>Technologies:</strong> {selectedProject.technologies.join(', ')}</p>
+                        <p><strong>Level:</strong> {selectedProject.level}</p>
+                        <p><strong>Duration:</strong> {selectedProject.duration} hrs</p>
+                        <p><strong>Budget:</strong> ${selectedProject.money}</p>
+                        {selectedProject.question === null ? (
+                                    
                                     <button
                                         onClick={generateQuestions}
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                     >
                                         Choose a Problem Statement
                                     </button>
-                                </div>
-                                <div className="p-2">
-                                    <button
-                                        onClick={handleCloseProjectDetails}
-                                        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-                                    >
-                                        Close
-                                    </button>
-                                </div>
+                                    
+                                ) : (
+                                    <p><strong>Question:</strong> {selectedProject.question}</p>
+                                )}
+                        <div className="flex justify-end mt-4">
+                            <div className="p-2 mx-1">
+                                <button
+                                    onClick={handleCloseProjectDetails}
+                                    className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                                >
+                                    Close
+                                </button>
                             </div>
                         </div>
                     </div>
-                )}
+                </div>
+            )}
 
-                <div className='mt-4'>
-                    {showModal && (
-                        <div className="fixed inset-0 items-center justify-center bg-black bg-opacity-50 p-20">
-                            <div className="bg-white p-6 rounded-lg shadow-xl max-h-full overflow-y-auto">
-                                <h2 className="text-lg font-bold mb-4">Add New Project</h2>
-                                <form onSubmit={handleSubmit}>
-                                    <div className="mb-4">
-                                        <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">Project Name</label>
-                                        <input type="text" id="projectName" name="projectName" value={formData.projectName} onChange={handleChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required />
+            <div className='mt-4'>
+                {showModal && (
+                    <div className="fixed inset-0 items-center justify-center bg-black bg-opacity-50 p-20">
+                        <div className="bg-white p-6 rounded-lg shadow-xl max-h-full overflow-y-auto">
+                            <h2 className="text-lg font-bold mb-4">Add New Project</h2>
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-4">
+                                    <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">Project Name</label>
+                                    <input type="text" id="projectName" name="projectName" value={formData.projectName} onChange={handleChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required />
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="problemStatement" className="block text-sm font-medium text-gray-700">Problem Statement</label>
+                                    <textarea id="problemStatement" name="problemStatement" value={formData.problemStatement} onChange={handleChange} rows="4" className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required></textarea>
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">Project Description</label>
+                                    <textarea id="description" name="description" value={formData.description} onChange={handleChange} rows="4" className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required></textarea>
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700" htmlFor='technologies'>Technologies</label>
+                                    <Select
+                                        isMulti
+                                        options={techOptions}
+                                        value={techOptions.filter(option => formData.technologies.includes(option.value))}
+                                        onChange={handleTechChange}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        name='technologies'
+                                        id='technologies'
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="level" className="block text-sm font-medium text-gray-700">Level of Project</label>
+                                    <select id="level" name="level" value={formData.level} onChange={handleChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required>
+                                        <option value="">Select Level</option>
+                                        <option value="beginner">Beginner</option>
+                                        <option value="intermediate">Intermediate</option>
+                                        <option value="advanced">Advanced</option>
+                                    </select>
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="duration" className="block text-sm font-medium text-gray-700">Time required to complete</label>
+                                    <input type="text" id="duration" name="duration" value={formData.duration} onChange={handleChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required />
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="money" className="block text-sm font-medium text-gray-700">Budget</label>
+                                    <input type="text" id="money" name="money" value={formData.money} onChange={handleChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required />
+                                </div>
+                                <div className="flex flex-col items-center  sm:flex-row sm:justify-center sm:space-x-4">
+                                    <div className="p-2 mx-1 sm:mx-0.5">
+                                        <button type="submit" className="bg-gradient-to-r from-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-3 rounded" onClick={handleSubmit}>
+                                            Submit
+                                        </button>
                                     </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="problemStatement" className="block text-sm font-medium text-gray-700">Problem Statement</label>
-                                        <textarea id="problemStatement" name="problemStatement" value={formData.problemStatement} onChange={handleChange} rows="4" className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required></textarea>
+                                    <div className="p-2 mx-1 sm:mx-0.5">
+                                        <button type="button" onClick={handleCloseModal} className="bg-gradient-to-r from-red-800 hover:bg-red-500 text-white font-bold py-2 px-3 rounded">
+                                            Cancel
+                                        </button>
                                     </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="description" className="block text-sm font-medium text-gray-700">Project Description</label>
-                                        <textarea id="description" name="description" value={formData.description} onChange={handleChange} rows="4" className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required></textarea>
-                                    </div>
-                                    <div className="mb-4">
-                                        <label className="block text-sm font-medium text-gray-700" htmlFor='technologies'>Technologies</label>
-                                        <Select
-                                            isMulti
-                                            options={techOptions}
-                                            value={techOptions.filter(option => formData.technologies.includes(option.value))}
-                                            onChange={handleTechChange}
-                                            className="basic-multi-select"
-                                            classNamePrefix="select"
-                                            name='technologies'
-                                            id='technologies'
-                                        />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="level" className="block text-sm font-medium text-gray-700">Level of Project</label>
-                                        <select id="level" name="level" value={formData.level} onChange={handleChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required>
-                                            <option value="">Select Level</option>
-                                            <option value="beginner">Beginner</option>
-                                            <option value="intermediate">Intermediate</option>
-                                            <option value="advanced">Advanced</option>
-                                        </select>
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="duration" className="block text-sm font-medium text-gray-700">Time required to complete</label>
-                                        <input type="text" id="duration" name="duration" value={formData.duration} onChange={handleChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="money" className="block text-sm font-medium text-gray-700">Budget</label>
-                                        <input type="text" id="money" name="money" value={formData.money} onChange={handleChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full text-sm" required />
-                                    </div>
-                                    <div className="flex flex-col items-center  sm:flex-row sm:justify-center sm:space-x-4">
-                                        <div className="p-2 mx-1 sm:mx-0.5">
-                                            <button type="submit" className="bg-gradient-to-r from-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-3 rounded" onClick={handleSubmit}>
-                                                Submit
-                                            </button>
-                                        </div>
-                                        <div className="p-2 mx-1 sm:mx-0.5">
-                                            <button type="button" onClick={handleCloseModal} className="bg-gradient-to-r from-red-800 hover:bg-red-500 text-white font-bold py-2 px-3 rounded">
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
-                    )}
-                    {/* Question modal */}
-                    {questionModalOpen && (
-                        <div className="fixed inset-0 items-center justify-center bg-black bg-opacity-50 p-20">
-                            <div className="bg-white p-6 rounded-lg shadow-xl max-h-full overflow-y-auto">
-                                <h2 className="text-lg font-bold mb-4">Select a Problem Statement</h2>
-                                <div className="space-y-4">
+                    </div>
+                )}
+                {/* Question modal */}
+                {questionModalOpen && (
+                    <div className="fixed inset-0 items-center justify-center bg-black bg-opacity-50 p-20">
+                        <div className="bg-white p-6 rounded-lg shadow-xl max-h-full overflow-y-auto">
+                            <h2 className="text-lg font-bold mb-4">Select a Problem Statement</h2>
+                            <div className="space-y-4">
                                 {Object.keys(generatedQuestions).map((questionKey, index) => (
                                     <div key={index} className="flex items-center space-x-2">
                                         <input
@@ -453,28 +457,28 @@ const Dashboard = () => {
                                     </div>
                                 ))}
 
-                                    <div className="flex justify-end mt-4">
-                                        <button
-                                            onClick={handleQuestionSelection}
-                                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                        >
-                                            Make this the Problem Statement
-                                        </button>
-                                        <button
-                                            onClick={() => setQuestionModalOpen(false)}
-                                            className="ml-4 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
+                                <div className="flex justify-end mt-4">
+                                    <button
+                                        onClick={handleQuestionSelection}
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                    >
+                                        Make this the Problem Statement
+                                    </button>
+                                    <button
+                                        onClick={() => setQuestionModalOpen(false)}
+                                        className="ml-4 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                                    >
+                                        Cancel
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    )}
-                </div>
-                <hr className='my-6' />
+                    </div>
+                )}
             </div>
-            );
+            <hr className='my-6' />
+        </div>
+    );
 };
 
-            export default Dashboard;
+export default Dashboard;
