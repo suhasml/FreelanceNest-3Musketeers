@@ -68,6 +68,16 @@ const Dashboard = () => {
         { value: 'Others', label: 'Others' },
 
     ];
+    const [feedback, setFeedback] = useState([]);
+
+    const fetchFeedback = async () => {
+    try {
+        const response = await axios.get(`https://freelancenest-backend.onrender.com/PM/projects/${selectedProject._id}/feedback`);
+        setFeedback(response.data);
+    } catch (error) {
+        console.error('Error fetching feedback:', error);
+    }
+    };
 
     const { currentUser, userLoggedIn } = useAuth();
     console.log('IsLoggedIn:', userLoggedIn);
@@ -91,11 +101,14 @@ const Dashboard = () => {
 
     useEffect(() => {
         fetchProjects();
-    }, []);
+        if (selectedProject) {
+            fetchFeedback();
+        }
+    }, [selectedProject]);
 
     const fetchProjects = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/PM/projects/${currentUser.email}`);
+            const response = await axios.get(`https://freelancenest-backend.onrender.com/PM/projects/${currentUser.email}`);
             setProjects(response.data);
             setLoading(false);
         } catch (error) {
@@ -106,7 +119,7 @@ const Dashboard = () => {
 
     const addProjectToDB = async (projectData) => {
         try {
-            const response = await axios.post('http://localhost:3000/PM/projects', projectData);
+            const response = await axios.post('https://freelancenest-backend.onrender.com/PM/projects', projectData);
             fetchProjects();
         } catch (error) {
             console.error('Error adding project:', error);
@@ -200,7 +213,7 @@ const Dashboard = () => {
                 ...selectedProject,
                 question: selectedQuestion
             };
-            await axios.put(`http://localhost:3000/PM/projects/${selectedProject._id}`, updatedProject);
+            await axios.put(`https://freelancenest-backend.onrender.com/PM/projects/${selectedProject._id}`, updatedProject);
             setQuestionModalOpen(false);
             fetchProjects();
         } catch (error) {
@@ -211,7 +224,7 @@ const Dashboard = () => {
     // const getQuestionForProject = async () => {
     //     try {
     //         // Make a GET request to the backend API to fetch the question for the project
-    //         const response = await axios.get(`http://localhost:3000/PM/projects/questions/${selectedProject._id}`);
+    //         const response = await axios.get(`https://freelancenest-backend.onrender.com/PM/projects/questions/${selectedProject._id}`);
 
     //         if (response.status === 200) {
     //             return response.data.question; // Return the question if it exists
@@ -336,7 +349,7 @@ const Dashboard = () => {
                 )}
             </div>
 
-            {selectedProject && (
+            {/* {selectedProject && (
                 <div className="fixed inset-0 items-center justify-center bg-black bg-opacity-50 p-20">
                     <div className="bg-white p-6 rounded-lg shadow-xl max-h-full overflow-y-auto">
                         <h2 className="text-lg font-bold mb-4">Project Details</h2>
@@ -371,7 +384,55 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-            )}
+            )} */}
+            {selectedProject && (
+  <div className="fixed inset-0 items-center justify-center bg-black bg-opacity-50 p-20">
+    <div className="bg-white p-6 rounded-lg shadow-xl max-h-full overflow-y-auto">
+      <h2 className="text-lg font-bold mb-4">Project Details</h2>
+      <p><strong>Project Name:</strong> {selectedProject.projectName}</p>
+      <p><strong>Problem Statement:</strong> {selectedProject.problemStatement}</p>
+      <p><strong>Description:</strong> {selectedProject.description}</p>
+      <p><strong>Technologies:</strong> {selectedProject.technologies.join(', ')}</p>
+      <p><strong>Level:</strong> {selectedProject.level}</p>
+      <p><strong>Duration:</strong> {selectedProject.duration} hrs</p>
+      <p><strong>Budget:</strong> ${selectedProject.money}</p>
+      {selectedProject.question === null ? (
+        <button
+          onClick={generateQuestions}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Choose a Problem Statement
+        </button>
+      ) : (
+        <p><strong>Question:</strong> {selectedProject.question}</p>
+      )}
+
+      {/* Display Feedback */}
+      <div>
+        <h3 className="text-lg font-bold mt-4 mb-2">Feedback</h3>
+        {feedback.map((item, index) => (
+          <div key={index} className="border p-3 my-2">
+            <p>User: {item.userId}</p>
+            <p>Grade: {item.grade}</p>
+            <p>Justification: {item.justification}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex justify-end mt-4">
+        <div className="p-2 mx-1">
+          <button
+            onClick={handleCloseProjectDetails}
+            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
 
             <div className='mt-4'>
                 {showModal && (

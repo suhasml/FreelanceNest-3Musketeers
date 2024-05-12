@@ -86,7 +86,7 @@ const Profile = () => {
     // Function to fetch user data from the backend
     const fetchUserData = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/freelancer/developers/${currentUser.email}`);
+            const response = await axios.get(`https://freelancenest-backend.onrender.com/freelancer/developers/${currentUser.email}`);
             setUserData(response.data);
         } catch (error) {
             console.error('Error fetching user data:', error);
@@ -100,11 +100,11 @@ const Profile = () => {
             if (isDeveloper) {
                 console.log(currentUser.email);
                 console.log(isDeveloper);
-                response = await axios.get(`http://localhost:3000/projects/assigned/${currentUser.email}`);
+                response = await axios.get(`https://freelancenest-backend.onrender.com/projects/assigned/${currentUser.email}`);
             } else if (isProjectManager) {
                 console.log(currentUser.email);
                 console.log(isProjectManager);
-                response = await axios.get(`http://localhost:3000/projects/created/${currentUser.email}`);
+                response = await axios.get(`https://freelancenest-backend.onrender.com/projects/created/${currentUser.email}`);
             }
             setProjects(response.data);
             setLoading(false);
@@ -118,7 +118,7 @@ const Profile = () => {
     const saveChanges = async () => {
         try {
             // Assuming you have an endpoint to update user data
-            await axios.post(`http://localhost:3000/freelancer/developers/${currentUser.email}`, 
+            await axios.post(`https://freelancenest-backend.onrender.com/freelancer/developers/${currentUser.email}`, 
                 {
                     firstName: userData.firstName,
                     lastName: userData.lastName,

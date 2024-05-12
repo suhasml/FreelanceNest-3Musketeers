@@ -48,7 +48,7 @@ const Login = () => {
                 // Check if the user logging in is a project manager
                 if (isProjectManager) {
                     // Make a request to your backend API to add the project manager to the database
-                    const response = await fetch('http://localhost:3000/PM/users', {
+                    const response = await fetch('https://freelancenest-backend.onrender.com/PM/users', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ const Login = () => {
 
                 if (isDeveloper) {
                     // Make a request to your backend API to add the developer to the database
-                    const response = await fetch('http://localhost:3000/freelancer/developers', {
+                    const response = await fetch('https://freelancenest-backend.onrender.com/freelancer/developers', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ const Login = () => {
                 // Check if the user signing in with Google is a project manager
                 if (isProjectManager) {
                     // Make a request to your backend API to add the project manager to the database
-                    const response = await fetch('http://localhost:3000/PM/users', {
+                    const response = await fetch('https://freelancenest-backend.onrender.com/PM/users', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ const Login = () => {
 
                 if (isDeveloper) {
                     // Make a request to your backend API to add the developer to the database
-                    const response = await fetch('http://localhost:3000/freelancer/developers', {
+                    const response = await fetch('https://freelancenest-backend.onrender.com/freelancer/developers', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
